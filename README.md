@@ -1,6 +1,3 @@
-https://docs.google.com/spreadsheets/d/1H4yaXyhLMSXv95ZCG8Gy7YiYUVs9MED7or3xUwP9l04/edit?usp=sharing
-
-
 # RabbitMQ - Media Streaming Tests
 This repo contains 3 producer-consumer pair of test scripts. Each producer emits out a frame of 720p@30fps, digested by the consumer and displayed to user. The 3 producer-consumer configrations are as follows: 
 
