@@ -32,3 +32,11 @@ python 720-consumer-cpu-encoded.py
 # Step 3 - Start producer process
 720-consumer-cpu-encoded.py
 ```
+
+
+### System Specs
+| Hardware  | Spec |
+| ------------- | ------------- |
+| CPU  | 11th Gen Intel® Core™ i7-11800H @ 2.30GHz × 16  |
+| GPU | GeForce RTX 3070 Mobile / Max-Q |
+| RAM  | 16.0 GiB  |
