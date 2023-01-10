@@ -3,13 +3,13 @@ This repo contains 3 producer-consumer pair of test scripts. Each producer emits
 
 Results of these experiments are available <a href="https://docs.google.com/spreadsheets/d/1H4yaXyhLMSXv95ZCG8Gy7YiYUVs9MED7or3xUwP9l04/edit?usp=sharing">here</a>
 
-![results-img](https://github.com/marib-suitan/rabbitmq-meda-streaming-tests/blob/master/misc/results.png?raw=true)
+<img src="https://github.com/marib-suitan/rabbitmq-meda-streaming-tests/blob/master/misc/results.png" alt="results-img">
 
 
 ### Config 1 - No Encoding
 The folder 'no-encoding' contains producer-consumer script pair where producer reads 720p frames, converts them to bytes and directs them to the consumer where they are converted back to a frame from byte string and then displayed.
 
-![no-encoding-img](https://github.com/marib-suitan/rabbitmq-meda-streaming-tests/blob/master/misc/no-encoding.png?raw=true)
+<img src="https://github.com/marib-suitan/rabbitmq-meda-streaming-tests/blob/master/misc/no-encoding.png" alt="no-encoding-img">
 
 
 ### Config 2 - CPU Encoding
