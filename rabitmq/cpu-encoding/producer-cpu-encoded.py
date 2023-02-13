@@ -15,13 +15,14 @@ channel.queue_bind(exchange='direct_logs',
                    routing_key='car1')
 
 
-img1 = cv2.imread('../720p_Images/1.jpg')
-img2 = cv2.imread('../720p_Images/2.jpg')
-img3 = cv2.imread('../720p_Images/3.jpg')
+img1 = cv2.imread('../../720p_Images/1.jpg')
+img2 = cv2.imread('../../720p_Images/2.jpg')
+img3 = cv2.imread('../../720p_Images/3.jpg')
 imgArr = [img1,img2,img3]
 
-
 frameCount = 0
+totalFrameBytes = 0
+totalTimeImgEncode = 0
 totalTimeFrameToBytes = 0
 totalTimeMsgPublish = 0
 
@@ -30,25 +31,36 @@ while True:
     cycleTimeStart = time.time()
     frame = imgArr[frameCount%3]
 
-    currTimeBytes = str(time.time()).encode('utf8')
+    startTime = str(time.time())
 
     t1 = time.time()
-    framebytes = frame.tobytes()
-    # len(framebytes) == 2764800
+    result, imgencoded = cv2.imencode('.jpg', frame)
     t2 = time.time()
-    totalTimeFrameToBytes += (t2-t1)
+    totalTimeImgEncode += (t2-t1)
 
 
     t11 = time.time()
+    framebytes = imgencoded.tobytes()
+    # avg len(framebytes) == 170778
+    t22 = time.time()
+    totalTimeFrameToBytes += (t22-t11)
+    totalFrameBytes += len(framebytes)
+
+
+    t111 = time.time()
     channel.basic_publish(exchange='direct_logs',
                     routing_key='car1',
-                    body=framebytes+currTimeBytes)
-    t22 = time.time()
-    # Even tho this is an async function, its time still scales with number of bytes
-    totalTimeMsgPublish += (t22-t11)
+                    properties=pika.BasicProperties(
+                        headers={'startTime': startTime} 
+                    ),
+                    body=framebytes)
+    t222 = time.time()
+    totalTimeMsgPublish += (t222-t111)
 
     frameCount += 1
 
+    print(f'Average frame encoding time  = {round(totalTimeImgEncode/frameCount,5)}')
+    print(f'Average enocded frame bytes  = {round(totalFrameBytes/frameCount,5)}')
     print(f'Average frame to bytes time  = {round(totalTimeFrameToBytes/frameCount,5)}')
     print(f'Average message publish time = {round(totalTimeMsgPublish/frameCount,5)}')
     print('-'*20)
