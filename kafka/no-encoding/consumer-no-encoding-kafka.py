@@ -4,11 +4,16 @@ import numpy as np
 import time
 
 
+def error_callback(err):
+    print("callback hit!")
+    raise(err)
+
 topic = ["multi-video-stream"]
 config = {
     'bootstrap.servers': '127.0.0.1:9092',
     'group.id': 'msssse',
     'enable.auto.commit': False,
+    "error_cb": error_callback,
     'default.topic.config': {'auto.offset.reset': 'latest'}
 }
 
